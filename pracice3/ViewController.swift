@@ -43,7 +43,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tabla.beginUpdates()
         tabla.insertRows(at: [indexPath], with: .automatic)
         tabla.endUpdates()
-
         field.text = ""
         view.endEditing(true)
     }
