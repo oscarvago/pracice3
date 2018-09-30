@@ -17,11 +17,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var field: UITextField!
     @IBOutlet weak var tabla: UITableView!
 
-    @IBOutlet weak var addButtoner: UIButton!
-    @IBAction func performAdd (_sender: AnyObject){
-       clicktoAdd()
+    @IBOutlet weak var powerField: UITextField!
+    
+    @IBAction func makeAdd(_ sender: UIButton) {
+        clicktoAdd()
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,11 +40,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func clicktoAdd ()
    {
         nombres.append(field.text!)
+        pawa.append(powerField.text!)
         let indexPath = IndexPath(row: nombres.count - 1, section: 0)
+        _ = IndexPath(row: pawa.count - 1, section: 0)
         tabla.beginUpdates()
         tabla.insertRows(at: [indexPath], with: .automatic)
         tabla.endUpdates()
         field.text = ""
+        powerField.text = ""
         view.endEditing(true)
     }
 
@@ -61,12 +65,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let celda = tableView.dequeueReusableCell(withIdentifier: "celda", for: indexPath) as! celda
-
+         let celda = tableView.dequeueReusableCell(withIdentifier: "celda")
         celda?.textLabel?.text = nombres[indexPath.row]
         celda?.detailTextLabel?.text = pawa[indexPath.row]
 
-        return celda
+        return celda!
     }
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let alert = UIAlertController(title: "Hola \(nombres[indexPath.row])", message: "Go", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
